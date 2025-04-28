@@ -1,0 +1,276 @@
+{
+  "name": "Psicultura",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "854101d5-f9fa-4af2-aa3c-b7b24ed67556",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6b533f84-bf9e-427b-84f0-acafe285e529",
+      "name": "Webhook",
+      "webhookId": "854101d5-f9fa-4af2-aa3c-b7b24ed67556"
+    },
+    {
+      "parameters": {
+        "operation": "push"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "d3021f04-fb83-4357-9d19-1e54bf22c347",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "bgX6JWysg54pIy2f",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        440,
+        0
+      ],
+      "id": "67482c85-b238-4bf8-9b9c-3d09005a7e12",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        520,
+        220
+      ],
+      "id": "d2234714-b70f-4c7e-884c-898bfe400a1f",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "bgX6JWysg54pIy2f",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        0
+      ],
+      "id": "2ea7f5bb-fef6-440d-a577-0f0f11f6499f",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        700,
+        220
+      ],
+      "id": "f509a5c7-51ec-4bad-9f10-bf4792b5616d",
+      "name": "Answer questions with a vector store"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        880,
+        400
+      ],
+      "id": "d23b01e4-b075-4f93-b9b5-e1db163efc79",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.1,
+      "position": [
+        600,
+        400
+      ],
+      "id": "8e4426ec-44f8-425e-a501-6251a1de88dc",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "9nOoJp5wF0FgegxG",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        620,
+        560
+      ],
+      "id": "8c1f5f06-78c3-476a-802b-e9d0ffd8029b",
+      "name": "Embeddings Google Gemini"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        360,
+        220
+      ],
+      "id": "83f3d20b-dc8e-4ef1-a41b-3840d3622f5b",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "3kyLXbHHnIKI44oS",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer questions with a vector store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a3610c5a-f0b1-4dc0-a7ed-86c5a229ae38",
+  "meta": {
+    "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2e03a9a5c3ebdc387f919262945e1dfdfec52ee461ea3e83482a9536a258f8d2"
+  },
+  "id": "XGb6LN1UqsSui9eq",
+  "tags": []
+}
