@@ -8,10 +8,9 @@ function createHeader() {
                        <div class="logo-text">Aqua<span>Bioma</span></div>
                    </div>
                    <nav class="nav-menu arimo-regular">
-                       <a href="#biomas">Biomas</a>
-                       <a href="#sobre">Sobre</a>
-                       <a href="#equipe">Equipe do Projeto</a>
-                       <a href="#contato">Contato</a>
+                       <a href="index.html">Mapa</a>
+                       <a href="sobre.html">Biomas</a>
+                       <a href="equipe.html">Equipe do Projeto</a>
                    </nav>
                </div>
            </header>

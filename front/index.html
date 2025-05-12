@@ -12,60 +12,58 @@
     <script src="js/header.js"></script>
     <script src="js/biomaInfo.js"></script>
     <script src="geojson/brazil_biomes.geojson.js"></script>
-
 </head>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .site-header {
+        padding-top: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        position: relative;
+    }
+
+    .biomas-section {
+        height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .map-container {
+        width: 99%;
+        height: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+</style>
 <body>
+<header class="site-header">
+    <h2 class="shrikhand-regular">Biomas do Brasil</h2>
+</header>
 
-<div class="container">
-    <!-- Seção de Biomas -->
-    <section id="biomas" class="biomas-section">
-        <h2 class="shrikhand-regular">Biomas do Brasil</h2>
+<section id="biomas" class="biomas-section">
+    <div class="map-container">
         <div id="map"></div>
-    </section>
-
-    <!-- Seção Sobre -->
-    <section id="sobre" class="module" style="margin-top: 30px">
-        <h2 class="module-title shrikhand-regular">Sobre o projeto</h2>
-        <div class="about-content">
-            <div class="about-text arimo-regular">
-                <p>O projeto AquaBioma surgiu durante a disciplina de Piscicultura, com objetivo de criar uma conexão entre os biomas brasileiros e a piscicultura de forma interativa, através de uma linguagem acessível, buscamos incentivar o interesse de jovens por meio de temas ambientais.</p>
-                <p>A plataforma digital foi pensada para ser lúdica, informativa e visualmente atrativa.</p>
-                <p>Tem foco em estudantes de 11 a 14 anos, do ensino fundamental II, o site traz mapas interativos, curiosidades e conteúdos ilustrados. Cada bioma tem uma apresentação a partir de suas características e relação com a criação de peixes, assim provendo consciência ambiental aliada ao conhecimento sobre produção sustentável.</p>
-            </div>
-            <div class="about-image">
-                <img src="fotos/sobre/sobre.svg" alt="Ilustração sobre o projeto">
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Equipe -->
-    <section id="equipe" class="module">
-        <h2 class="module-title shrikhand-regular">Equipe do Projeto</h2>
-        <div class="team-container">
-            <div class="team-member arimo-regular">
-                <h3 class="shrikhand-regular">Alice Schultz Santana</h3>
-                <img src="fotos/equipe/alessandra.webp" alt="Alice Schultz Santana">
-                <p>Graduanda de Zootecnia na Universidade Federal do Paraná, atualmente atua em projetos de pesquisa com enfoque em nutrição animal.</p>
-                <p class="contact">http://lattes.cnpq.br/5574400229068853</p>
-                <p class="contact">Alice.schultz@ufpr.br</p>
-            </div>
-            <div class="team-member arimo-regular">
-                <h3 class="shrikhand-regular">Otávio de Oliveira Burch</h3>
-                <img src="fotos/equipe/otavio.jpg" alt="Otávio de Oliveira Burch">
-                <p>Graduando em Gestão da Informação na Universidade Federal do Paraná, atua na pesquisa de ensino STEM para jovens e estudo de inteligência artificial. Voluntário do CPT.</p>
-                <p class="contact">http://lattes.cnpq.br/5574400229068853</p>
-                <p class="contact">Otavio.burch@ufpr.br</p>
-            </div>
-            <div class="team-member arimo-regular">
-                <h3 class="shrikhand-regular">Alessandra Matins Camargo</h3>
-                <img src="fotos/equipe/alessandra.webp" alt="Alessandra Matins Camargo">
-                <p>Graduanda de Zootecnia na Universidade Federal do Paraná, atualmente atua nos projetos de extensionista em produção animal e nutrição animal.</p>
-                <p class="contact">https://lattes.cnpq.br/6530632281861292</p>
-                <p class="contact">alessandra.martins@ufpr.br</p>
-            </div>
-        </div>
-    </section>
-
+    </div>
+</section>
     <!-- Modal para exibição de informações do bioma -->
     <div id="biomaModal" class="modal">
         <div class="modal-content" id="modal-content">
@@ -78,7 +76,6 @@
             </div>
         </div>
     </div>
-</div>
     <script>
         // Mapa base
         var map = L.map('map', {
