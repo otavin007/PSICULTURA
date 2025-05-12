@@ -1,4 +1,4 @@
-{
+window.biomasGeoJSON = {
 "type": "FeatureCollection",
 "name": "Brazil_biomes",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
