@@ -5,12 +5,13 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "854101d5-f9fa-4af2-aa3c-b7b24ed67556",
+        "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        0,
+        -640,
         0
       ],
       "id": "6b533f84-bf9e-427b-84f0-acafe285e529",
@@ -19,72 +20,42 @@
     },
     {
       "parameters": {
-        "operation": "push"
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        220,
-        0
-      ],
-      "id": "d3021f04-fb83-4357-9d19-1e54bf22c347",
-      "name": "Redis",
-      "credentials": {
-        "redis": {
-          "id": "bgX6JWysg54pIy2f",
-          "name": "Redis account"
-        }
-      }
-    },
-    {
-      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um assistente virtual inteligente que responde perguntas sobre peixes, psicultura e biomas para crianças de 10 a 14 anos. Seu objetivo é responder as perguntas com uma linguagem mais simples para que eles entendam, mas tambem não deixar de passar uma informação acertiva.\n\n\nVocê está atuando em um canal de mensagens rápidas. Mantenha uma comunicação humana, acolhedora e eficaz. Não invente informações.\n\n\nMensagem do usuário: {{ $('set_fields').item.json.Message }}\n\n",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        440,
+        660,
         0
       ],
       "id": "67482c85-b238-4bf8-9b9c-3d09005a7e12",
       "name": "AI Agent"
     },
     {
-      "parameters": {},
-      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
-      "typeVersion": 1.5,
-      "position": [
-        520,
-        220
-      ],
-      "id": "d2234714-b70f-4c7e-884c-898bfe400a1f",
-      "name": "Redis Chat Memory",
-      "credentials": {
-        "redis": {
-          "id": "bgX6JWysg54pIy2f",
-          "name": "Redis account"
-        }
-      }
-    },
-    {
       "parameters": {
-        "options": {}
+        "options": {
+          "responseCode": 200
+        }
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        800,
+        1020,
         0
       ],
       "id": "2ea7f5bb-fef6-440d-a577-0f0f11f6499f",
       "name": "Respond to Webhook"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "name": "base_psicultura"
+      },
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1,
       "position": [
-        700,
+        920,
         220
       ],
       "id": "f509a5c7-51ec-4bad-9f10-bf4792b5616d",
@@ -92,30 +63,38 @@
     },
     {
       "parameters": {
+        "modelName": "models/gemini-1.5-flash-latest",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        880,
+        1100,
         400
       ],
       "id": "d23b01e4-b075-4f93-b9b5-e1db163efc79",
-      "name": "Google Gemini Chat Model"
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "3kyLXbHHnIKI44oS",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
         "pineconeIndex": {
           "__rl": true,
+          "value": "psicultura",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "psicultura"
         },
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.1,
       "position": [
-        600,
+        820,
         400
       ],
       "id": "8e4426ec-44f8-425e-a501-6251a1de88dc",
@@ -128,15 +107,23 @@
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        620,
+        840,
         560
       ],
       "id": "8c1f5f06-78c3-476a-802b-e9d0ffd8029b",
-      "name": "Embeddings Google Gemini"
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "3kyLXbHHnIKI44oS",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -146,7 +133,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        360,
+        580,
         220
       ],
       "id": "83f3d20b-dc8e-4ef1-a41b-3840d3622f5b",
@@ -157,38 +144,156 @@
           "name": "Google Gemini(PaLM) Api account"
         }
       }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"APIkey\": \"{{ $json.body.APIkey }}\",\n  \"keyUUID\": \"{{ $json.body.keyUUID }}\",\n  \"Message\": \"{{ $json.body.Message }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -340,
+        0
+      ],
+      "id": "6ad7e198-e5e6-4429-b4c6-01b3d319644a",
+      "name": "set_fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "59939c52-b2e8-42fa-8a68-840f2b557c3a",
+              "leftValue": "={{ $json.APIkey }}",
+              "rightValue": "teste",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -120,
+        0
+      ],
+      "id": "0cf15ac4-a672-4d0b-a5fe-e41e49a5dc53",
+      "name": "is_authorized"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"Error\": \"Chave de acesso não autorizada\"\n}",
+        "options": {
+          "responseCode": 401
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        140,
+        260
+      ],
+      "id": "39081e95-3a21-4ff3-95a0-4664c57ab239",
+      "name": "error_without_authorization"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=message",
+        "messageData": "={{ JSON.stringify({ [ $('set_fields').item.json.keyUUID ]: $('set_fields').item.json.Message }) }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        300,
+        0
+      ],
+      "id": "a7bf39d0-50e9-4266-bcf1-e317f3d80a1e",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "bgX6JWysg54pIy2f",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=\"{{ $('set_fields').item.json.keyUUID }}\""
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        760,
+        220
+      ],
+      "id": "b4ae7634-0a77-4095-a92c-d703c0bed36e",
+      "name": "Redis Chat Memory1",
+      "credentials": {
+        "redis": {
+          "id": "bgX6JWysg54pIy2f",
+          "name": "Redis account"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "connection": "keep-alive",
+            "content-length": "87",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0",
+            "sec-ch-ua": "\"Not(A:Brand\";v=\"99\", \"Opera GX\";v=\"118\", \"Chromium\";v=\"133\"",
+            "content-type": "application/json",
+            "sec-ch-ua-mobile": "?0",
+            "accept": "*/*",
+            "origin": "http://localhost:63342",
+            "sec-fetch-site": "same-site",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-dest": "empty",
+            "referer": "http://localhost:63342/",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "APIkey": "teste",
+            "keyUUID": "2eb5aefc-cf73-470d-97ac-199221f2bcdd",
+            "Message": "teste 2"
+          },
+          "webhookUrl": "http://localhost:5678/webhook/854101d5-f9fa-4af2-aa3c-b7b24ed67556",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "connections": {
     "Webhook": {
       "main": [
         [
           {
-            "node": "Redis",
+            "node": "set_fields",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Redis": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Redis Chat Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
             "index": 0
           }
         ]
@@ -259,13 +364,64 @@
           }
         ]
       ]
+    },
+    "set_fields": {
+      "main": [
+        [
+          {
+            "node": "is_authorized",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "is_authorized": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error_without_authorization",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "a3610c5a-f0b1-4dc0-a7ed-86c5a229ae38",
+  "versionId": "ef2c027a-b9a0-47bd-bd43-33c5785c88db",
   "meta": {
     "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
     "templateCredsSetupCompleted": true,
