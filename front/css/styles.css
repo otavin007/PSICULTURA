@@ -31,9 +31,9 @@ body {
 }
 
 .logo img {
-    background-color: #fff9d6;
-    border-radius: 50%;
-    height: 50px;
+    /*background-color: #fff9d6;*/
+    /*border-radius: 50%;*/
+    height: 60px;
     margin-right: 10px;
 }
 
@@ -91,7 +91,7 @@ h2 {
     color: #2c3e50;
     text-align: center;
     margin-bottom: 30px;
-    border-bottom: 2px solid #005727;
+    /*border-bottom: 2px solid #005727;*/
     padding-bottom: 15px;
 }
 
@@ -139,7 +139,7 @@ h2 {
     margin-top: 5px;
 }
 
-/* Sobre */
+
 .about-content {
     display: flex;
     align-items: center;
@@ -150,6 +150,9 @@ h2 {
     flex: 2;
     font-size: 16px;
     line-height: 1.6;
+    text-align: justify;
+    font-weight: 600;
+    color: #333;
 }
 
 .about-image {
@@ -159,7 +162,7 @@ h2 {
 
 .about-image img {
     max-width: 100%;
-    border-radius: 10px;
+    filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.2));
 }
 #map {
     height: 600px;
@@ -292,24 +295,43 @@ h2 {
 }
 
 .legend {
-    background-color: white;
-    padding: 10px;
+    background-color: #f5f5f5;
+    border: 3px solid #005727;
     border-radius: 5px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    width: 160px;
+    font-family: 'Arial', sans-serif;
+}
+
+.legend h4 {
+    background-color: #005727;
+    color: white;
+    margin: 0;
+    padding: 8px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+    border-bottom: 2px solid #005727;
+    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
-    z-index: 1;
+    margin: 8px;
 }
 
 .color-box {
-    width: 20px;
+    width: 25px;
     height: 20px;
-    margin-right: 8px;
-    border: 1px solid #ccc;
+    margin-right: 10px;
+    border: none;
+}
+
+.legend-item span {
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
 }
 
 .arimo-regular {
@@ -324,3 +346,15 @@ h2 {
     font-weight: 400;
     font-style: normal;
 }
+
+.mochiy-pop-p-one-regular {
+    font-family: "Mochiy Pop P One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.bree-serif-regular {
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+

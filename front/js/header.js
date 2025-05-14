@@ -4,12 +4,12 @@ function createHeader() {
            <header class="header">
                <div class="header-container">
                    <div class="logo">
-                       <img src="fotos/logo.webp" alt="AquaBioma Logo">
-                       <div class="logo-text">Aqua<span>Bioma</span></div>
+                       <img src="fotos/logocorreto.png" alt="AquaBioma Logo">
+                       <div class="logo-text mochiy-pop-p-one-regular">Aqua<span>Bioma</span></div>
                    </div>
-                   <nav class="nav-menu arimo-regular">
+                   <nav class="nav-menu mochiy-pop-p-one-regular">
                        <a href="index.html">Mapa</a>
-                       <a href="sobre.html">Biomas</a>
+                       <a href="sobre.html">Sobre o Projeto</a>
                        <a href="equipe.html">Equipe do Projeto</a>
                    </nav>
                </div>

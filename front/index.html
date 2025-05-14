@@ -5,7 +5,7 @@
     <title>Biomas do Brasil</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Shrikhand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Bree+Serif&family=Mochiy+Pop+P+One&family=Shrikhand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="css/styles.css">
@@ -56,7 +56,7 @@
 </style>
 <body>
 <header class="site-header">
-    <h2 class="shrikhand-regular">Biomas do Brasil</h2>
+    <h2 class="mochiy-pop-p-one-regular" style="color: #005727">Biomas do Brasil</h2>
 </header>
 
 <section id="biomas" class="biomas-section">
@@ -181,7 +181,7 @@
         }).addTo(map);
 
         // Adicionar legenda ao mapa
-        const legend = L.control({ position: 'bottomright' });
+        const legend = L.control({ position: 'bottomleft' });
 
         legend.onAdd = function(map) {
             const div = L.DomUtil.create('div', 'legend');
