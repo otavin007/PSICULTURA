@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // URL do seu webhook - substitua se necessário
-            const response = await fetch('https://j1vx08fk-5678.brs.devtunnels.ms/webhook/854101d5-f9fa-4af2-aa3c-b7b24ed67556', {
+            const response = await fetch('https://692d-2804-14c-8785-d24d-dda2-f380-5655-f748.ngrok-free.app/webhook/854101d5-f9fa-4af2-aa3c-b7b24ed67556', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
